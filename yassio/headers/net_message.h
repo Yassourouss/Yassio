@@ -10,10 +10,10 @@ namespace someip
         struct message_header
         {
             uint32_t message_id;
-            uint32_t length = sizeof(request_id) + sizeof(protocol_version) +
+            uint32_t length; /*= sizeof(request_id) + sizeof(protocol_version) +
                     sizeof(interface_version) + sizeof(message_type) +
                     sizeof(return_code);
-            uint32_t request_id;
+            */uint32_t request_id;
             uint8_t protocol_version;
             uint8_t interface_version;
             uint8_t message_type;

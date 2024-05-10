@@ -103,7 +103,7 @@ int main()
 	{
 		int input;
 		std::cin >> input;
-		switch(input)
+		switch((int)input)
 		{
 			case 1:
 			{
@@ -119,6 +119,11 @@ int main()
 			{
 				c.SendMessage();
 			}
+			default:
+			//std::cin.clear();
+			
+			//std::cin.ignore(INT_MAX);
+			break;
     	}
 	}
 	bgThread.join();
