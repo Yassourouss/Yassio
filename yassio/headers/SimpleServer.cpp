@@ -53,15 +53,54 @@ protected:
 
 		case ServerMessage:
 		{	
-			int message_id; 
-			msg >> message_id; 
-			int disp_id = 10000 + message_id;
-			std::cout << message_id << std::endl;
-			std::cout << "[" << client->GetID() << "] Messaged : [" << disp_id <<  "]\n";
-			MessageClient(m_deqConnections[message_id], msg);
+			int disp_id = 10000 + msg.header.request_id;
+			//std::cout << message_id << std::endl;
+			if(m_deqConnections[msg.header.request_id] && m_deqConnections[msg.header.request_id]->IsConnected())
+			{
+				
+				std::cout << "[" << client->GetID() << "] Messaged : [" << disp_id <<  "]\n";
+				int receiver = msg.header.request_id;
+				msg.header.request_id = client->GetID() - 10000;
+				MessageClient(m_deqConnections[receiver], msg);
+			}
+			else
+			{
+				std::cout << "[Server] Client " << disp_id << " Is Unavailable\n";
+			}
 		}
 	
 		break;
+
+		case Subscibe:
+		{
+			int message_id; 
+			msg >> message_id; 
+			int disp_id = 10000 + message_id;
+			//std::cout << message_id << std::endl;
+			std::cout << "[" << client->GetID() << "] Subscribed to [" << disp_id <<  "]\n";
+			msg << (client->GetID() - 10000);
+			MessageClient(m_deqConnections[message_id], msg);
+		}
+		break;
+
+		case Pubish:
+		{
+			int disp_id = 10000 + msg.header.request_id;
+			//std::cout << message_id << std::endl;
+			if(m_deqConnections[msg.header.request_id] && m_deqConnections[msg.header.request_id]->IsConnected())
+			{
+				
+				std::cout << "[" << client->GetID() << "] Published.\n";
+				int receiver = msg.header.request_id;
+				msg.header.request_id = client->GetID() - 10000;
+				MessageClient(m_deqConnections[receiver], msg);
+			}
+			else
+			{
+				std::cout << "[Server] Client " << disp_id << " Is Unavailable\n";
+			}
+
+		}
 		}
 	}
 };

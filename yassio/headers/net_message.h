@@ -9,7 +9,7 @@ namespace someip
     {
         struct message_header
         {
-            uint32_t message_id;
+            int32_t message_id;
             uint32_t length; /*= sizeof(request_id) + sizeof(protocol_version) +
                     sizeof(interface_version) + sizeof(message_type) +
                     sizeof(return_code);*/

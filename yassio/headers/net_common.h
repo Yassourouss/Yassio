@@ -10,10 +10,12 @@
 #include <boost/asio/ts/internet.hpp>
 #define asio  boost::asio
 
-#define	ServerAccept 10
-#define	ServerDeny 20
-#define	ServerPing 30
-#define	AllMessage 40
-#define ServerMessage 50
-#define Encryption 60
+#define	ServerAccept 0x10
+#define	ServerDeny 0x20
+#define	ServerPing 0x30
+#define	AllMessage 0x40
+#define ServerMessage 0x50
+#define Encryption 0x60
+#define Subscibe 0x70
+#define Pubish 0x80
 

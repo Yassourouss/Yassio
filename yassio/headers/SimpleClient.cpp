@@ -17,21 +17,50 @@ public:
 		Send(msg);
 	}
 
-    void SendMessage()
+    void SendMessage(int receiver, int message)
     {
         someip::net::message msg;
         msg.header.message_id = ServerMessage;
-        msg << 0x11;
+		msg.header.request_id = receiver;
+        msg << message;
         Send(msg);
     }
 
 	void MessageAll()
 	{
 		someip::net::message msg;
-		msg.header.message_id = AllMessage;		
+		msg.header.message_id = AllMessage;
+		msg << 0xFF;		
 		Send(msg);
 	}
-};
+
+	void Subscribe(int id)
+	{
+		someip::net::message msg;
+		msg.header.message_id = Subscibe;
+		msg << id;
+		Send(msg);
+	}
+	void Add_Sub(int id)
+	{
+		subscribers.push_back(id);
+	}
+
+	void Publish()
+	{
+		someip::net::message msg;
+		/*msg.header.message_id = Pubish;
+		msg << 0xEE;*/
+		for (int rec : subscribers)
+		{
+			SendMessage(rec, 0XEE);
+		}
+
+	}
+
+	private:
+	std::vector<int> subscribers;
+	};
 
 int main()
 {
@@ -77,16 +106,17 @@ int main()
 					// Server has responded to a ping request	
 					uint32_t clientID;
 					msg >> clientID;
-					std::cout << "Hello from [" << clientID << "]\n";
+					std::cout << "Client [" << msg.header.request_id << "] sent :" << clientID << "\n";
 				}
 				break;
 				
-				/*case ClientMessage:
+				case Subscibe:
 				{
-					char ss[] = "AAAAA";
-					msg >> ss;
-					std::cout << ss << std::endl;
-				}*/
+					int sub_id;
+					msg >> sub_id;
+					c.Add_Sub(sub_id);
+					std::cout << "[Client] New subscription from [" << sub_id << "]\n";
+				}
 				}
 			}
 		}
@@ -117,7 +147,23 @@ int main()
 			break;
 			case 3:
 			{
-				c.SendMessage();
+				int rec;
+				int message;
+				std::cout << "Enter the receiver and then the message : \n"; 
+				std::cin >> rec >> message;
+				c.SendMessage(rec,message);
+			}
+			break;
+			case 4:
+			{
+				int id;
+				std::cin >> id;
+				c.Subscribe(id);
+			}
+			break;
+			case 5:
+			{
+				c.Publish();
 			}
 			default:
 			//std::cin.clear();
