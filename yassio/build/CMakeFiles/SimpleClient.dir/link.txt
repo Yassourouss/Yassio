@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/SimpleClient.dir/src/SimpleClient.cpp.o -o SimpleClient 

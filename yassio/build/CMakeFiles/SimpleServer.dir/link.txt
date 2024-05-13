@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/SimpleServer.dir/src/SimpleServer.cpp.o -o SimpleServer 
