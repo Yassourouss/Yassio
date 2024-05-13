@@ -12,8 +12,8 @@ namespace someip
             uint32_t message_id;
             uint32_t length; /*= sizeof(request_id) + sizeof(protocol_version) +
                     sizeof(interface_version) + sizeof(message_type) +
-                    sizeof(return_code);
-            */uint32_t request_id;
+                    sizeof(return_code);*/
+            uint32_t request_id;
             uint8_t protocol_version;
             uint8_t interface_version;
             uint8_t message_type;
@@ -28,7 +28,9 @@ namespace someip
 
         size_t length() const 
         {
-            return header.length + body.size();
+            return sizeof(header.request_id) + sizeof(header.protocol_version) +
+                    sizeof(header.interface_version) + sizeof(header.message_type) +
+                    sizeof(header.return_code) + body.size();
         }
 
         size_t size() const 
