@@ -18,4 +18,5 @@
 #define Encryption 0x60
 #define Subscibe 0x70
 #define Pubish 0x80
+#define StringMessage 0x90
 

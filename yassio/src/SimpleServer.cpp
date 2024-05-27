@@ -71,6 +71,25 @@ protected:
 	
 		break;
 
+		case StringMessage:
+		{
+			int disp_id = 10000 + msg.header.request_id;
+			//std::cout << message_id << std::endl;
+			if(m_deqConnections[msg.header.request_id] && m_deqConnections[msg.header.request_id]->IsConnected())
+			{
+				
+				std::cout << "[" << client->GetID() << "] Messaged : [" << disp_id <<  "]\n";
+				int receiver = msg.header.request_id;
+				msg.header.request_id = client->GetID() - 10000;
+				MessageClient(m_deqConnections[receiver], msg);
+			}
+			else
+			{
+				std::cout << "[Server] Client " << disp_id << " Is Unavailable\n";
+			}
+		}
+		break;
+		
 		case Subscibe:
 		{
 			int message_id; 

@@ -16,6 +16,15 @@ public:
 		msg << timeNow;
 		Send(msg);
 	}
+	
+	void SendString(int receiver, std::string message)
+	{
+		someip::net::message msg;
+        msg.header.message_id = StringMessage;
+		msg.header.request_id = receiver;
+        msg << message;
+        Send(msg);
+	}
 
     void SendMessage(int receiver, int message)
     {
@@ -117,6 +126,14 @@ int main()
 					c.Add_Sub(sub_id);
 					std::cout << "[Client] New subscription from [" << sub_id << "]\n";
 				}
+				break;
+
+				case StringMessage:
+				{
+					std::string str;
+					msg >> str; 
+					std::cout << str << std::endl;
+				}
 				}
 			}
 		}
@@ -164,6 +181,14 @@ int main()
 			case 5:
 			{
 				c.Publish();
+			}
+
+			case 6:
+			{
+				int id;
+				std::cin >> id;
+				std::string ss = "Hello";
+				c.SendString(id, ss);
 			}
 			default:
 			//std::cin.clear();

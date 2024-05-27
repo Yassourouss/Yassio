@@ -70,6 +70,21 @@ namespace someip
             return msg;
         }
 
+        friend message& operator << (message& msg, const std::string& data)
+        {
+            // Check that the type of the data being pushed is trivially copyable
+            //static_assert(std::is_standard_layout<DataType>::value, "Data is too complex to be pushed into vector");
+
+            const int length = data.length(); 
+            char* char_array = new char[length + 1];
+            strcpy(char_array, data.c_str());
+            msg.body.resize(msg.body.size() + length + 1);
+            std::copy(char_array, char_array + length, msg.body.data());
+            msg << length;
+            // Return the target message so it can be "chained"
+            return msg;
+        }
+
         template<typename DataType>
         friend message& operator >> (message& msg, DataType& data)
         {
@@ -91,6 +106,31 @@ namespace someip
             // Return the target message so it can be "chained"
             return msg;
         }	
+
+        friend message& operator >> (message& msg, std::string& data)
+        {
+            // Check that the type of the data being pushed is trivially copyable
+            //static_assert(std::is_standard_layout<DataType>::value, "Data is too complex to be pulled from vector");
+            int len;
+            msg >> len;
+            // Cache the location towards the end of the vector where the pulled data starts
+            size_t i = msg.body.size() - len;
+            char * t = new char[len]; 
+            // Physically copy the data from the vector into the user variable
+            std::copy(msg.body.data(), msg.body.data() + len, t);
+            std::stringstream ss;
+            ss << t; 
+            data = ss.str();
+            // Shrink the vector to remove read bytes, and reset end position
+            msg.body.resize(i);
+
+            // Recalculate the message size
+            msg.header.length = msg.size();
+
+            // Return the target message so it can be "chained"
+            return msg;
+        }	
+
         };
         
         template <typename T>
