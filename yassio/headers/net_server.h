@@ -69,7 +69,7 @@ namespace someip
                             {
                                 m_deqConnections.push_back(std::move(newconn));
 
-                                m_deqConnections.back()->ConnectToClient(nIDCounter++);
+                                m_deqConnections.back()->ConnectToClient(this,nIDCounter++);
                                 std::cout << "[" << m_deqConnections.back() ->GetID() << "] Connection Approved\n";
                             }
                             else
@@ -161,7 +161,10 @@ namespace someip
                 {
 
                 }
+                virtual void OnClientValidated(std::shared_ptr<connection<T>> client)
+                {
 
+                }
             protected:
                 tsqueue<owned_message<T>> m_qMessagesIn;
 
