@@ -1,13 +1,10 @@
 #include <iostream>
-#include "someip.h"
+
 
 int main(){
-    someip::net::message msg;
-    std::map<std::string , int> m;
-    m["Hello"] = 3;
-    m["Bye"] = 4;
-    msg << m;
-    std::map<std::string, int> m2;
-    msg >> m;
+   // someip::net::message msg;
+    char* he = "H";
+    uint64_t ho = (uint64_t) he;
+    std::cout << ho;
     return 0;
 }

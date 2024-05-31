@@ -161,6 +161,7 @@ namespace someip
                 {
 
                 }
+                public: 
                 virtual void OnClientValidated(std::shared_ptr<connection<T>> client)
                 {
 

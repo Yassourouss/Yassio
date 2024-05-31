@@ -3,8 +3,9 @@
 #include "net_common.h"
 #include "net_tsqueue.h"
 #include "net_message.h"
+#include "IDPINGER/idpinger.cpp"
 
-namespace someip()
+namespace someip
 {
     namespace net
     {
@@ -23,22 +24,29 @@ namespace someip()
 
             public :
 
-            connection(owner parent, asio::io_context& asioContext, asio::ip::tcp::socket socket, tsqueue<owned_message<T>>& qIn)
-            : m_asioContext(asioContext), m_socket(std::move(socket)), m_qMessagesIn(qIn)
-            {
-                m_nOwnerType = parent;
-                if (m_nOwnerType == owner::server)
-                {
-                    //senmd data to perform the handshake.
-                    m_nHandshakeOut = 0;
-                    //to implement
-                }
-                else
-                {
-                    m_nHandshakeIn = 0;
-                    m_nHandshakeOut = 0;
-                }
-            }
+			connection(owner parent, asio::io_context& asioContext, asio::ip::tcp::socket socket, tsqueue<owned_message<T>>& qIn)
+				: m_asioContext(asioContext), m_socket(std::move(socket)), m_qMessagesIn(qIn)
+			{
+                std::string word = selected_word();
+                m_nHandshakeCheck = new char[word.length()];
+                m_nHandshakeIn = new char[word.length()];
+                m_nHandshakeOut = new char[word.length()];
+				m_nOwnerType = parent;
+
+				// Construct validation check data
+				if (m_nOwnerType == owner::server)
+				{
+                   /* m_nHandshakeOut = "Hello";
+                    m_nHandshakeCheck = "Hello";*/
+                    strcpy(m_nHandshakeOut, "Hello");
+                    m_nHandshakeCheck =  (char*)"Hello";
+
+				}
+				else
+				{
+
+				}
+			}
 
             virtual ~connection()
             {}
@@ -214,61 +222,80 @@ namespace someip()
 
                     ReadHeader();
                 }
-
-                uint64_t scramble();
+                uint64_t scramble(uint64_t nInput)
+                {
+                    uint64_t out = nInput ^ 0xDEADBEEFC0DECAFE;
+                    out = (out & 0xF0F0F0F0F0F0F0) >> 4 | (out & 0x0F0F0F0F0F0F0F) << 4;
+                    return out ^ 0xC0DEFACE12345678;
+                }
 
                 void WriteValidation()
                 {
-                    asio::async_write(m_socket, asio::buffer(&m_nHandshakeOut, sizeof(uint64_t)),
-					[this](std::error_code ec, std::size_t length) 
-                    {
-                        if (!ec) 
+                    std::cout << "Message out : " << m_nHandshakeOut << std::endl;
+                    asio::async_write(m_socket, asio::buffer(m_nHandshakeOut, 6),
+                        [this](std::error_code ec, std::size_t length)
                         {
-                            if (m_nOwnerType == owner::client)
-                            ReadHeader();
-                        }
-                        else
-                        {
-                            m_socket.close();
-                        }
-
-                        });
-                    }
-
-                void ReadValidation(someip::net::server_interface<T>* server = nullptr)
-                {
-                    asio::async_write(m_socket, asio::buffer(m_socket, asio::buffer(&m_nHandshakeIn, sizeof(uint64_t))),
-					[this](std::error_code ec, std::size_t length) 
-                    {
-                        if (!ec) 
-                        {
-                            if (m_nOwnerType == owner::server)
+                            if (!ec)
                             {
-                                if(m_nHandshakeIn == m_nHandshakeCheck)
-                                {
-                                    std::cout << "Client Validated" << std::endl;
-                                    server->OnClientValidated(this->shared_from_this());
-
+                                // Validation data sent, clients should sit and wait
+                                // for a response (or a closure)
+                                if (m_nOwnerType == owner::client)
                                     ReadHeader();
+                            }
+                            else
+                            {
+                                m_socket.close();
+                            }
+                        });
+                }
+
+            void ReadValidation(someip::net::server_interface<T>* server = nullptr)
+                {
+                    
+                    asio::async_read(m_socket, asio::buffer(m_nHandshakeIn, 6),
+                        [this, server](std::error_code ec, std::size_t length)
+                        {
+                            if (!ec)
+                            {
+                                std::cout << "[] Message received : " << m_nHandshakeIn << std::endl; 
+                                if (m_nOwnerType == owner::server)
+                                {
+                                    // Connection is a server, so check response from client
+
+                                    // Compare sent data to actual solution
+                                    std::cout << "m_nHandshakeCheck : " << m_nHandshakeCheck << std::endl;
+                                    if (strcmp(m_nHandshakeIn, m_nHandshakeCheck) == 0)
+                                    {
+                                        // Client has provided valid solution, so allow it to connect properly
+                                        std::cout << "Client Validated" << std::endl;
+                                        server->OnClientValidated(this->shared_from_this());
+
+                                        // Sit waiting to receive data now
+                                        ReadHeader();
+                                    }
+                                    else
+                                    {
+                                        // Client gave incorrect data, so disconnect
+                                        std::cout << "Client Disconnected (Fail Validation)" << std::endl;
+                                        m_socket.close();
+                                    }
                                 }
                                 else
                                 {
-                                    std::cout << "Client Disconnected (Failed Verification)" << std::endl;
-                                    m_socket.close();
+                                    // Connection is a client, so solve puzzle
+                                    m_nHandshakeOut = m_nHandshakeIn;
+
+                                    // Write the result
+                                    WriteValidation();
                                 }
                             }
                             else
                             {
-                                m_nHandshakeOut = //to implement;
-                                WriteValidation();
+                                // Some biggerfailure occured
+                                std::cout << "Client Disconnected (ReadValidation)" << std::endl;
+                                m_socket.close();
                             }
-                        }
-                        else
-                        {
-                            std::cout << "Client Disconnected (ReadValidation)" << std::endl;
-                            m_socket.close();
-                        }
-                    });
+                        });
                 }
 
                         
@@ -282,11 +309,15 @@ namespace someip()
             message m_msgTemporaryIn;
             owner m_nOwnerType = owner::server;
 
-            uint32_t id = 0;
+			char*  m_nHandshakeOut ;
+			char* m_nHandshakeIn;
+			char* m_nHandshakeCheck;
 
-            uint64_t m_nHandshakeOut = 0;
-            uint64_t m_nHandshakeIn = 0;
-            uint64_t m_nHandshakeCheck = 0;
+
+			bool m_bValidHandshake = false;
+			bool m_bConnectionEstablished = false;
+
+			uint32_t id = 0;
         };
     }
 }
