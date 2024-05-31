@@ -38,7 +38,11 @@ namespace someip
 				{
                    /* m_nHandshakeOut = "Hello";
                     m_nHandshakeCheck = "Hello";*/
-                    word.copy(m_nHandshakeOut, word.length()+1);
+                   m_key = rand_key();
+                    std::cout << "random key : " << m_key << std::endl;
+                    std::string scrambled = encrypt_word(word,m_key); //m_key);
+                    scrambled.copy(m_nHandshakeOut, word.length()+1);
+                   // word.copy(m_nHandshakeOut,word.length() + 1);
                     word.copy(m_nHandshakeCheck, word.length()+1);
 
 				}
@@ -232,7 +236,7 @@ namespace someip
                 void WriteValidation()
                 {
                     std::cout << "Message out : " << m_nHandshakeOut << std::endl;
-                    asio::async_write(m_socket, asio::buffer(m_nHandshakeOut, word.length()),
+                    asio::async_write(m_socket, asio::buffer(m_nHandshakeOut, word.length()+1),
                         [this](std::error_code ec, std::size_t length)
                         {
                             if (!ec)
@@ -252,7 +256,7 @@ namespace someip
             void ReadValidation(someip::net::server_interface<T>* server = nullptr)
                 {
                     
-                    asio::async_read(m_socket, asio::buffer(m_nHandshakeIn, 6),
+                    asio::async_read(m_socket, asio::buffer(m_nHandshakeIn, word.length()+ 1),
                         [this, server](std::error_code ec, std::size_t length)
                         {
                             if (!ec)
@@ -283,6 +287,11 @@ namespace someip
                                 else
                                 {
                                     // Connection is a client, so solve puzzle
+                                    std::string wew = m_nHandshakeIn;
+                                    m_key = determine_shift(wew);
+                                    std::cout << "Determined shift : " << m_key << std::endl;
+                                    //wew = decrypt_word(wew, m_key);
+                                    //wew.copy(m_nHandshakeOut, wew.length());
                                     m_nHandshakeOut = m_nHandshakeIn;
 
                                     // Write the result
@@ -313,6 +322,7 @@ namespace someip
 			char* m_nHandshakeIn;
 			char* m_nHandshakeCheck;
 
+            int m_key = 0;
             std::string word;
 
 			bool m_bValidHandshake = false;

@@ -34,6 +34,7 @@ int determine_shift(std::string word)
         std::cout << mword << std::endl;
         int determined_shift = -1;
         std::string base_word = selected_word();
+        std::cout << "base word : " << base_word << std::endl;
         for (int i = 1; i <= 25; ++i) {
             std::string encrypted_word_proxy = encrypt_word(base_word, i);
             if (encrypted_word_proxy == word) {
