@@ -27,10 +27,10 @@ namespace someip
 			connection(owner parent, asio::io_context& asioContext, asio::ip::tcp::socket socket, tsqueue<owned_message<T>>& qIn)
 				: m_asioContext(asioContext), m_socket(std::move(socket)), m_qMessagesIn(qIn)
 			{
-                std::string word = selected_word();
-                m_nHandshakeCheck = new char[word.length()];
-                m_nHandshakeIn = new char[word.length()];
-                m_nHandshakeOut = new char[word.length()];
+                word = selected_word();
+                m_nHandshakeCheck = new char[word.length()+1];
+                m_nHandshakeIn = new char[word.length()+1];
+                m_nHandshakeOut = new char[word.length()+1];
 				m_nOwnerType = parent;
 
 				// Construct validation check data
@@ -38,8 +38,8 @@ namespace someip
 				{
                    /* m_nHandshakeOut = "Hello";
                     m_nHandshakeCheck = "Hello";*/
-                    strcpy(m_nHandshakeOut, "Hello");
-                    m_nHandshakeCheck =  (char*)"Hello";
+                    word.copy(m_nHandshakeOut, word.length()+1);
+                    word.copy(m_nHandshakeCheck, word.length()+1);
 
 				}
 				else
@@ -232,7 +232,7 @@ namespace someip
                 void WriteValidation()
                 {
                     std::cout << "Message out : " << m_nHandshakeOut << std::endl;
-                    asio::async_write(m_socket, asio::buffer(m_nHandshakeOut, 6),
+                    asio::async_write(m_socket, asio::buffer(m_nHandshakeOut, word.length()),
                         [this](std::error_code ec, std::size_t length)
                         {
                             if (!ec)
@@ -313,6 +313,7 @@ namespace someip
 			char* m_nHandshakeIn;
 			char* m_nHandshakeCheck;
 
+            std::string word;
 
 			bool m_bValidHandshake = false;
 			bool m_bConnectionEstablished = false;
