@@ -71,6 +71,12 @@ namespace someip
                 return m_qMessagesIn;
             }
 
+            void offer_service(int service_id, int method_id){
+                someip::net::message msg;
+                msg.header.message_id = msg.header.message_id | (0x1 << 15); 
+                msg << service_id << method_id;
+                Send(msg);
+            }
             protected:
             asio::io_context m_context;
 

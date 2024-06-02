@@ -28,9 +28,9 @@ namespace someip
 				: m_asioContext(asioContext), m_socket(std::move(socket)), m_qMessagesIn(qIn)
 			{
                 word = selected_word();
-                m_nHandshakeCheck = new char[word.length()+1];
-                m_nHandshakeIn = new char[word.length()+1];
-                m_nHandshakeOut = new char[word.length()+1];
+                
+                m_nHandshakeInClient = new char[word.length()+1];
+                m_nHandshakeOutServer = new char[word.length()+1];
 				m_nOwnerType = parent;
 
 				// Construct validation check data
@@ -41,9 +41,9 @@ namespace someip
                    m_key = rand_key();
                     std::cout << "random key : " << m_key << std::endl;
                     std::string scrambled = encrypt_word(word,m_key); //m_key);
-                    scrambled.copy(m_nHandshakeOut, word.length()+1);
+                    scrambled.copy(m_nHandshakeOutServer, word.length()+1);
                    // word.copy(m_nHandshakeOut,word.length() + 1);
-                    word.copy(m_nHandshakeCheck, word.length()+1);
+                    m_nHandshakeCheck = m_key;
 
 				}
 				else
@@ -226,24 +226,20 @@ namespace someip
 
                     ReadHeader();
                 }
-                uint64_t scramble(uint64_t nInput)
-                {
-                    uint64_t out = nInput ^ 0xDEADBEEFC0DECAFE;
-                    out = (out & 0xF0F0F0F0F0F0F0) >> 4 | (out & 0x0F0F0F0F0F0F0F) << 4;
-                    return out ^ 0xC0DEFACE12345678;
-                }
 
                 void WriteValidation()
                 {
-                    std::cout << "Message out : " << m_nHandshakeOut << std::endl;
-                    asio::async_write(m_socket, asio::buffer(m_nHandshakeOut, word.length()+1),
+                    
+                    if (m_nOwnerType == owner::client){
+                        std::cout << "Message out : " << m_nHandshakeOutClient << std::endl;
+                    asio::async_write(m_socket, asio::buffer(&m_nHandshakeOutClient, sizeof(int)),
                         [this](std::error_code ec, std::size_t length)
                         {
                             if (!ec)
                             {
                                 // Validation data sent, clients should sit and wait
                                 // for a response (or a closure)
-                                if (m_nOwnerType == owner::client)
+                                
                                     ReadHeader();
                             }
                             else
@@ -251,24 +247,40 @@ namespace someip
                                 m_socket.close();
                             }
                         });
+                    }
+                    else
+                    {
+                        std::cout << "Message out : " << m_nHandshakeOutServer << std::endl;
+                        asio::async_write(m_socket, asio::buffer(m_nHandshakeOutServer, (word.length()+1)),
+                        [this](std::error_code ec, std::size_t length)
+                        {
+                            if (!ec)
+                            {
+                            }
+                            else
+                            {
+                                m_socket.close();
+                            }
+                        });
+                    }
                 }
 
             void ReadValidation(someip::net::server_interface<T>* server = nullptr)
                 {
-                    
-                    asio::async_read(m_socket, asio::buffer(m_nHandshakeIn, word.length()+ 1),
+                    if (m_nOwnerType == owner::server)
+                    {
+                    asio::async_read(m_socket, asio::buffer(&m_nHandshakeInServer, sizeof(int)),
                         [this, server](std::error_code ec, std::size_t length)
                         {
                             if (!ec)
                             {
-                                std::cout << "[] Message received : " << m_nHandshakeIn << std::endl; 
-                                if (m_nOwnerType == owner::server)
-                                {
+                                std::cout << "[] Message received : " << m_nHandshakeInServer << std::endl; 
+
                                     // Connection is a server, so check response from client
 
                                     // Compare sent data to actual solution
                                     std::cout << "m_nHandshakeCheck : " << m_nHandshakeCheck << std::endl;
-                                    if (strcmp(m_nHandshakeIn, m_nHandshakeCheck) == 0)
+                                    if (m_nHandshakeInServer == m_nHandshakeCheck)
                                     {
                                         // Client has provided valid solution, so allow it to connect properly
                                         std::cout << "Client Validated" << std::endl;
@@ -284,20 +296,27 @@ namespace someip
                                         m_socket.close();
                                     }
                                 }
+                        });
+                    }
                                 else
                                 {
+                    asio::async_read(m_socket, asio::buffer(m_nHandshakeInClient, word.length()+ 1),
+                        [this, server](std::error_code ec, std::size_t length)
+                        {
+                            if (!ec)
+                            {
                                     // Connection is a client, so solve puzzle
-                                    std::string wew = m_nHandshakeIn;
+                                    std::string wew = m_nHandshakeInClient;
                                     m_key = determine_shift(wew);
                                     std::cout << "Determined shift : " << m_key << std::endl;
                                     //wew = decrypt_word(wew, m_key);
                                     //wew.copy(m_nHandshakeOut, wew.length());
-                                    m_nHandshakeOut = m_nHandshakeIn;
+                                    m_nHandshakeOutClient = m_key;
+                                    std::cout << "hand shake out received value : " << m_nHandshakeOutClient << std::endl;
 
                                     // Write the result
                                     WriteValidation();
                                 }
-                            }
                             else
                             {
                                 // Some biggerfailure occured
@@ -305,6 +324,7 @@ namespace someip
                                 m_socket.close();
                             }
                         });
+                }
                 }
 
                         
@@ -318,9 +338,15 @@ namespace someip
             message m_msgTemporaryIn;
             owner m_nOwnerType = owner::server;
 
-			char*  m_nHandshakeOut ;
-			char* m_nHandshakeIn;
-			char* m_nHandshakeCheck;
+            //For the server : sends out a word, expects a number, matches it with a number
+
+			char*  m_nHandshakeOutServer;
+			int m_nHandshakeInServer;
+			int m_nHandshakeCheck;
+
+            //For the client : receives a word, sends back a number: 
+            char* m_nHandshakeInClient;
+            int m_nHandshakeOutClient;
 
             int m_key = 0;
             std::string word;

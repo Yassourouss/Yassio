@@ -149,8 +149,5 @@ namespace someip
 				return os;
 			}
 		};		
-
-
-    
     }
 }

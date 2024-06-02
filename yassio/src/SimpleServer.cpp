@@ -27,6 +27,7 @@ protected:
 	// Called when a message arrives
 	virtual void OnMessage(std::shared_ptr<someip::net::connection<int8_t>> client, someip::net::message& msg)
 	{
+		if(msg.header.message_id )
 		switch (msg.header.message_id)
 		{
 		case ServerPing:

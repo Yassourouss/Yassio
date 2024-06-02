@@ -175,7 +175,7 @@ namespace someip
                 std::thread m_threadContext;
 
                 asio::ip::tcp::acceptor m_asioAcceptor;
-
+                
                 uint32_t nIDCounter = 10000;
         };
     }
