@@ -11,7 +11,7 @@
     {} 
     friend std::ostream& operator<<(std::ostream& os, n_mService& serv)
     {
-        os <<"Service name : " << serv.name <<"\nService id : " << std::hex <<serv.service_id << "\n Instance id : " << std::hex << serv.instance_id << "\n Port : " << serv.port << std::endl;
+        os <<"Service name : " << serv.name <<"\nService id : " << std::hex <<serv.service_id << "\nInstance id : " << std::hex << serv.instance_id << "\nPort : " << serv.port << std::endl;
         return os;
     }
 };
@@ -95,9 +95,10 @@ protected:
                     }
                     ++it;
                 }
+                std::cout << "[" << client->GetID() << "] requested a service from [" << id + 10000 <<"]\n";
                 msg.header.request_id = client->GetID();
                 MessageClient(m_deqConnections[id], msg);
-                std::cout << "[" << client->GetID() << "] requested a service from [" << id + 10000 <<"]\n";
+                
             }
                 break;
 
@@ -122,13 +123,66 @@ protected:
             }
             break;
 
+            case SUBSCRIBE:
+            {
+                std::cout << "[" << client->GetID() << "] subscribed to  : [" << msg.header.request_id << "]\n";
+                int id = msg.header.request_id - 10000;
+                msg.header.request_id = client->GetID();
+                m_deqConnections[id]->Send(msg);
+            }
+            break;
+
             default:
                 break;
             }
         }
         else
         {
-            std::cout << "Received a message but it's not some ip sd you fuck !\n"; 
+            switch (msg.header.message_id)
+            {
+            case ServerPing:
+            {
+                std::cout << "[" << client->GetID() << "]: Server Ping\n";
+        
+                // Simply bounce message back to client
+                client->Send(msg);
+            }
+            break;
+
+            case AllMessage:
+            {
+                std::cout << "[" << client->GetID() << "]: Message All\n";
+                msg.header.message_id = ServerMessage;
+                msg.header.request_id = client->GetID();
+                MessageAllClients(msg, client);
+
+            }
+            break;
+
+            case ServerMessage:
+            {	
+                int disp_id = msg.header.request_id;
+                int real_id = disp_id - 10000;
+                //std::cout << message_id << std::endl;
+                if(m_deqConnections[real_id] && m_deqConnections[real_id]->IsConnected())
+                {
+                    
+                    std::cout << "[" << client->GetID() << "] Messaged : [" << disp_id <<  "]\n";
+                    int receiver = real_id;
+                    msg.header.request_id = client->GetID();
+                    MessageClient(m_deqConnections[receiver], msg);
+                }
+                else
+                {
+                    std::cout << "[Server] Client " << disp_id << " Is Unavailable\n";
+                }
+            }
+        
+            break;
+
+            default:
+            break;
+            }
         }
     }
 

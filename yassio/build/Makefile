@@ -117,17 +117,43 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named ComplexClient
+# Target rules for targets named EulerPClient
 
 # Build rule for target.
-ComplexClient: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ComplexClient
-.PHONY : ComplexClient
+EulerPClient: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 EulerPClient
+.PHONY : EulerPClient
 
 # fast build rule for target.
-ComplexClient/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexClient.dir/build.make CMakeFiles/ComplexClient.dir/build
-.PHONY : ComplexClient/fast
+EulerPClient/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EulerPClient.dir/build.make CMakeFiles/EulerPClient.dir/build
+.PHONY : EulerPClient/fast
+
+#=============================================================================
+# Target rules for targets named EulerYClient
+
+# Build rule for target.
+EulerYClient: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 EulerYClient
+.PHONY : EulerYClient
+
+# fast build rule for target.
+EulerYClient/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EulerYClient.dir/build.make CMakeFiles/EulerYClient.dir/build
+.PHONY : EulerYClient/fast
+
+#=============================================================================
+# Target rules for targets named HelloClient
+
+# Build rule for target.
+HelloClient: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 HelloClient
+.PHONY : HelloClient
+
+# fast build rule for target.
+HelloClient/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloClient.dir/build.make CMakeFiles/HelloClient.dir/build
+.PHONY : HelloClient/fast
 
 #=============================================================================
 # Target rules for targets named ComplexServer
@@ -141,30 +167,6 @@ ComplexServer: cmake_check_build_system
 ComplexServer/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexServer.dir/build.make CMakeFiles/ComplexServer.dir/build
 .PHONY : ComplexServer/fast
-
-src/ComplexClient.o: src/ComplexClient.cpp.o
-.PHONY : src/ComplexClient.o
-
-# target to build an object file
-src/ComplexClient.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexClient.dir/build.make CMakeFiles/ComplexClient.dir/src/ComplexClient.cpp.o
-.PHONY : src/ComplexClient.cpp.o
-
-src/ComplexClient.i: src/ComplexClient.cpp.i
-.PHONY : src/ComplexClient.i
-
-# target to preprocess a source file
-src/ComplexClient.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexClient.dir/build.make CMakeFiles/ComplexClient.dir/src/ComplexClient.cpp.i
-.PHONY : src/ComplexClient.cpp.i
-
-src/ComplexClient.s: src/ComplexClient.cpp.s
-.PHONY : src/ComplexClient.s
-
-# target to generate assembly for a file
-src/ComplexClient.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexClient.dir/build.make CMakeFiles/ComplexClient.dir/src/ComplexClient.cpp.s
-.PHONY : src/ComplexClient.cpp.s
 
 src/ComplexServer.o: src/ComplexServer.cpp.o
 .PHONY : src/ComplexServer.o
@@ -190,6 +192,78 @@ src/ComplexServer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexServer.dir/build.make CMakeFiles/ComplexServer.dir/src/ComplexServer.cpp.s
 .PHONY : src/ComplexServer.cpp.s
 
+src/EulerPClient.o: src/EulerPClient.cpp.o
+.PHONY : src/EulerPClient.o
+
+# target to build an object file
+src/EulerPClient.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EulerPClient.dir/build.make CMakeFiles/EulerPClient.dir/src/EulerPClient.cpp.o
+.PHONY : src/EulerPClient.cpp.o
+
+src/EulerPClient.i: src/EulerPClient.cpp.i
+.PHONY : src/EulerPClient.i
+
+# target to preprocess a source file
+src/EulerPClient.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EulerPClient.dir/build.make CMakeFiles/EulerPClient.dir/src/EulerPClient.cpp.i
+.PHONY : src/EulerPClient.cpp.i
+
+src/EulerPClient.s: src/EulerPClient.cpp.s
+.PHONY : src/EulerPClient.s
+
+# target to generate assembly for a file
+src/EulerPClient.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EulerPClient.dir/build.make CMakeFiles/EulerPClient.dir/src/EulerPClient.cpp.s
+.PHONY : src/EulerPClient.cpp.s
+
+src/EulerYClient.o: src/EulerYClient.cpp.o
+.PHONY : src/EulerYClient.o
+
+# target to build an object file
+src/EulerYClient.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EulerYClient.dir/build.make CMakeFiles/EulerYClient.dir/src/EulerYClient.cpp.o
+.PHONY : src/EulerYClient.cpp.o
+
+src/EulerYClient.i: src/EulerYClient.cpp.i
+.PHONY : src/EulerYClient.i
+
+# target to preprocess a source file
+src/EulerYClient.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EulerYClient.dir/build.make CMakeFiles/EulerYClient.dir/src/EulerYClient.cpp.i
+.PHONY : src/EulerYClient.cpp.i
+
+src/EulerYClient.s: src/EulerYClient.cpp.s
+.PHONY : src/EulerYClient.s
+
+# target to generate assembly for a file
+src/EulerYClient.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EulerYClient.dir/build.make CMakeFiles/EulerYClient.dir/src/EulerYClient.cpp.s
+.PHONY : src/EulerYClient.cpp.s
+
+src/HelloClient.o: src/HelloClient.cpp.o
+.PHONY : src/HelloClient.o
+
+# target to build an object file
+src/HelloClient.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloClient.dir/build.make CMakeFiles/HelloClient.dir/src/HelloClient.cpp.o
+.PHONY : src/HelloClient.cpp.o
+
+src/HelloClient.i: src/HelloClient.cpp.i
+.PHONY : src/HelloClient.i
+
+# target to preprocess a source file
+src/HelloClient.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloClient.dir/build.make CMakeFiles/HelloClient.dir/src/HelloClient.cpp.i
+.PHONY : src/HelloClient.cpp.i
+
+src/HelloClient.s: src/HelloClient.cpp.s
+.PHONY : src/HelloClient.s
+
+# target to generate assembly for a file
+src/HelloClient.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloClient.dir/build.make CMakeFiles/HelloClient.dir/src/HelloClient.cpp.s
+.PHONY : src/HelloClient.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -198,14 +272,22 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... ComplexClient"
 	@echo "... ComplexServer"
-	@echo "... src/ComplexClient.o"
-	@echo "... src/ComplexClient.i"
-	@echo "... src/ComplexClient.s"
+	@echo "... EulerPClient"
+	@echo "... EulerYClient"
+	@echo "... HelloClient"
 	@echo "... src/ComplexServer.o"
 	@echo "... src/ComplexServer.i"
 	@echo "... src/ComplexServer.s"
+	@echo "... src/EulerPClient.o"
+	@echo "... src/EulerPClient.i"
+	@echo "... src/EulerPClient.s"
+	@echo "... src/EulerYClient.o"
+	@echo "... src/EulerYClient.i"
+	@echo "... src/EulerYClient.s"
+	@echo "... src/HelloClient.o"
+	@echo "... src/HelloClient.i"
+	@echo "... src/HelloClient.s"
 .PHONY : help
 
 

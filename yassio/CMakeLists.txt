@@ -1,9 +1,19 @@
-cmake_minimum_required(VERSION "3.16.3")
+cmake_minimum_required(VERSION 3.16.3)
 
+project(EulerClient)
 
-project("ComplexClient")
 include_directories("../yassio/headers")
-add_executable(ComplexClient src/ComplexClient.cpp)
-add_executable(ComplexServer src/ComplexServer.cpp)
+
 find_package(Threads REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE Threads::Threads)
+
+# Define the executables
+add_executable(EulerPClient src/EulerPClient.cpp)
+add_executable(EulerYClient src/EulerYClient.cpp)
+add_executable(HelloClient src/HelloClient.cpp)
+add_executable(ComplexServer src/ComplexServer.cpp)
+
+# Link libraries to each executable
+target_link_libraries(EulerPClient PRIVATE Threads::Threads)
+target_link_libraries(EulerYClient PRIVATE Threads::Threads)
+target_link_libraries(HelloClient PRIVATE Threads::Threads)
+target_link_libraries(ComplexServer PRIVATE Threads::Threads)

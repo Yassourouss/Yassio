@@ -1,4 +1,6 @@
-/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles/ComplexClient.dir
+/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles/EulerPClient.dir
+/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles/EulerYClient.dir
+/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles/HelloClient.dir
 /home/yassir/Desktop/Yassio/yassio/build/CMakeFiles/ComplexServer.dir
 /home/yassir/Desktop/Yassio/yassio/build/CMakeFiles/edit_cache.dir
 /home/yassir/Desktop/Yassio/yassio/build/CMakeFiles/rebuild_cache.dir

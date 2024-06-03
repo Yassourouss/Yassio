@@ -50,6 +50,8 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/ComplexClient.dir/DependInfo.cmake"
+  "CMakeFiles/EulerPClient.dir/DependInfo.cmake"
+  "CMakeFiles/EulerYClient.dir/DependInfo.cmake"
+  "CMakeFiles/HelloClient.dir/DependInfo.cmake"
   "CMakeFiles/ComplexServer.dir/DependInfo.cmake"
   )

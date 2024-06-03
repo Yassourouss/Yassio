@@ -63,7 +63,9 @@ CMAKE_BINARY_DIR = /home/yassir/Desktop/Yassio/yassio/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/ComplexClient.dir/all
+all: CMakeFiles/EulerPClient.dir/all
+all: CMakeFiles/EulerYClient.dir/all
+all: CMakeFiles/HelloClient.dir/all
 all: CMakeFiles/ComplexServer.dir/all
 .PHONY : all
 
@@ -72,35 +74,89 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/ComplexClient.dir/clean
+clean: CMakeFiles/EulerPClient.dir/clean
+clean: CMakeFiles/EulerYClient.dir/clean
+clean: CMakeFiles/HelloClient.dir/clean
 clean: CMakeFiles/ComplexServer.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/ComplexClient.dir
+# Target rules for target CMakeFiles/EulerPClient.dir
 
 # All Build rule for target.
-CMakeFiles/ComplexClient.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexClient.dir/build.make CMakeFiles/ComplexClient.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexClient.dir/build.make CMakeFiles/ComplexClient.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles --progress-num=1,2 "Built target ComplexClient"
-.PHONY : CMakeFiles/ComplexClient.dir/all
+CMakeFiles/EulerPClient.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EulerPClient.dir/build.make CMakeFiles/EulerPClient.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EulerPClient.dir/build.make CMakeFiles/EulerPClient.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles --progress-num=3,4 "Built target EulerPClient"
+.PHONY : CMakeFiles/EulerPClient.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/ComplexClient.dir/rule: cmake_check_build_system
+CMakeFiles/EulerPClient.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/yassir/Desktop/Yassio/yassio/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/ComplexClient.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/EulerPClient.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/yassir/Desktop/Yassio/yassio/build/CMakeFiles 0
-.PHONY : CMakeFiles/ComplexClient.dir/rule
+.PHONY : CMakeFiles/EulerPClient.dir/rule
 
 # Convenience name for target.
-ComplexClient: CMakeFiles/ComplexClient.dir/rule
-.PHONY : ComplexClient
+EulerPClient: CMakeFiles/EulerPClient.dir/rule
+.PHONY : EulerPClient
 
 # clean rule for target.
-CMakeFiles/ComplexClient.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexClient.dir/build.make CMakeFiles/ComplexClient.dir/clean
-.PHONY : CMakeFiles/ComplexClient.dir/clean
+CMakeFiles/EulerPClient.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EulerPClient.dir/build.make CMakeFiles/EulerPClient.dir/clean
+.PHONY : CMakeFiles/EulerPClient.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/EulerYClient.dir
+
+# All Build rule for target.
+CMakeFiles/EulerYClient.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EulerYClient.dir/build.make CMakeFiles/EulerYClient.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EulerYClient.dir/build.make CMakeFiles/EulerYClient.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles --progress-num=5,6 "Built target EulerYClient"
+.PHONY : CMakeFiles/EulerYClient.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/EulerYClient.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yassir/Desktop/Yassio/yassio/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/EulerYClient.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yassir/Desktop/Yassio/yassio/build/CMakeFiles 0
+.PHONY : CMakeFiles/EulerYClient.dir/rule
+
+# Convenience name for target.
+EulerYClient: CMakeFiles/EulerYClient.dir/rule
+.PHONY : EulerYClient
+
+# clean rule for target.
+CMakeFiles/EulerYClient.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EulerYClient.dir/build.make CMakeFiles/EulerYClient.dir/clean
+.PHONY : CMakeFiles/EulerYClient.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/HelloClient.dir
+
+# All Build rule for target.
+CMakeFiles/HelloClient.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloClient.dir/build.make CMakeFiles/HelloClient.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloClient.dir/build.make CMakeFiles/HelloClient.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles --progress-num=7,8 "Built target HelloClient"
+.PHONY : CMakeFiles/HelloClient.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/HelloClient.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yassir/Desktop/Yassio/yassio/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/HelloClient.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yassir/Desktop/Yassio/yassio/build/CMakeFiles 0
+.PHONY : CMakeFiles/HelloClient.dir/rule
+
+# Convenience name for target.
+HelloClient: CMakeFiles/HelloClient.dir/rule
+.PHONY : HelloClient
+
+# clean rule for target.
+CMakeFiles/HelloClient.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloClient.dir/build.make CMakeFiles/HelloClient.dir/clean
+.PHONY : CMakeFiles/HelloClient.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/ComplexServer.dir
@@ -109,7 +165,7 @@ CMakeFiles/ComplexClient.dir/clean:
 CMakeFiles/ComplexServer.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexServer.dir/build.make CMakeFiles/ComplexServer.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexServer.dir/build.make CMakeFiles/ComplexServer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles --progress-num=3,4 "Built target ComplexServer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles --progress-num=1,2 "Built target ComplexServer"
 .PHONY : CMakeFiles/ComplexServer.dir/all
 
 # Build rule for subdir invocation for target.
