@@ -6,7 +6,7 @@ std::string encrypt_word(const std::string& word, int shift) {
     std::string encrypted_word = word;
     for (char& c : encrypted_word) {
         if (std::isalpha(c)) {
-            c = c + shift;
+            c = 'A' + (c + shift) % 26;
         }
     }
     return encrypted_word;

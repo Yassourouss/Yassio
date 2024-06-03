@@ -117,78 +117,78 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named SimpleClient
+# Target rules for targets named ComplexClient
 
 # Build rule for target.
-SimpleClient: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SimpleClient
-.PHONY : SimpleClient
+ComplexClient: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ComplexClient
+.PHONY : ComplexClient
 
 # fast build rule for target.
-SimpleClient/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleClient.dir/build.make CMakeFiles/SimpleClient.dir/build
-.PHONY : SimpleClient/fast
+ComplexClient/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexClient.dir/build.make CMakeFiles/ComplexClient.dir/build
+.PHONY : ComplexClient/fast
 
 #=============================================================================
-# Target rules for targets named SimpleServer
+# Target rules for targets named ComplexServer
 
 # Build rule for target.
-SimpleServer: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SimpleServer
-.PHONY : SimpleServer
+ComplexServer: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ComplexServer
+.PHONY : ComplexServer
 
 # fast build rule for target.
-SimpleServer/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleServer.dir/build.make CMakeFiles/SimpleServer.dir/build
-.PHONY : SimpleServer/fast
+ComplexServer/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexServer.dir/build.make CMakeFiles/ComplexServer.dir/build
+.PHONY : ComplexServer/fast
 
-src/SimpleClient.o: src/SimpleClient.cpp.o
-.PHONY : src/SimpleClient.o
-
-# target to build an object file
-src/SimpleClient.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleClient.dir/build.make CMakeFiles/SimpleClient.dir/src/SimpleClient.cpp.o
-.PHONY : src/SimpleClient.cpp.o
-
-src/SimpleClient.i: src/SimpleClient.cpp.i
-.PHONY : src/SimpleClient.i
-
-# target to preprocess a source file
-src/SimpleClient.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleClient.dir/build.make CMakeFiles/SimpleClient.dir/src/SimpleClient.cpp.i
-.PHONY : src/SimpleClient.cpp.i
-
-src/SimpleClient.s: src/SimpleClient.cpp.s
-.PHONY : src/SimpleClient.s
-
-# target to generate assembly for a file
-src/SimpleClient.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleClient.dir/build.make CMakeFiles/SimpleClient.dir/src/SimpleClient.cpp.s
-.PHONY : src/SimpleClient.cpp.s
-
-src/SimpleServer.o: src/SimpleServer.cpp.o
-.PHONY : src/SimpleServer.o
+src/ComplexClient.o: src/ComplexClient.cpp.o
+.PHONY : src/ComplexClient.o
 
 # target to build an object file
-src/SimpleServer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleServer.dir/build.make CMakeFiles/SimpleServer.dir/src/SimpleServer.cpp.o
-.PHONY : src/SimpleServer.cpp.o
+src/ComplexClient.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexClient.dir/build.make CMakeFiles/ComplexClient.dir/src/ComplexClient.cpp.o
+.PHONY : src/ComplexClient.cpp.o
 
-src/SimpleServer.i: src/SimpleServer.cpp.i
-.PHONY : src/SimpleServer.i
+src/ComplexClient.i: src/ComplexClient.cpp.i
+.PHONY : src/ComplexClient.i
 
 # target to preprocess a source file
-src/SimpleServer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleServer.dir/build.make CMakeFiles/SimpleServer.dir/src/SimpleServer.cpp.i
-.PHONY : src/SimpleServer.cpp.i
+src/ComplexClient.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexClient.dir/build.make CMakeFiles/ComplexClient.dir/src/ComplexClient.cpp.i
+.PHONY : src/ComplexClient.cpp.i
 
-src/SimpleServer.s: src/SimpleServer.cpp.s
-.PHONY : src/SimpleServer.s
+src/ComplexClient.s: src/ComplexClient.cpp.s
+.PHONY : src/ComplexClient.s
 
 # target to generate assembly for a file
-src/SimpleServer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleServer.dir/build.make CMakeFiles/SimpleServer.dir/src/SimpleServer.cpp.s
-.PHONY : src/SimpleServer.cpp.s
+src/ComplexClient.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexClient.dir/build.make CMakeFiles/ComplexClient.dir/src/ComplexClient.cpp.s
+.PHONY : src/ComplexClient.cpp.s
+
+src/ComplexServer.o: src/ComplexServer.cpp.o
+.PHONY : src/ComplexServer.o
+
+# target to build an object file
+src/ComplexServer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexServer.dir/build.make CMakeFiles/ComplexServer.dir/src/ComplexServer.cpp.o
+.PHONY : src/ComplexServer.cpp.o
+
+src/ComplexServer.i: src/ComplexServer.cpp.i
+.PHONY : src/ComplexServer.i
+
+# target to preprocess a source file
+src/ComplexServer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexServer.dir/build.make CMakeFiles/ComplexServer.dir/src/ComplexServer.cpp.i
+.PHONY : src/ComplexServer.cpp.i
+
+src/ComplexServer.s: src/ComplexServer.cpp.s
+.PHONY : src/ComplexServer.s
+
+# target to generate assembly for a file
+src/ComplexServer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexServer.dir/build.make CMakeFiles/ComplexServer.dir/src/ComplexServer.cpp.s
+.PHONY : src/ComplexServer.cpp.s
 
 # Help Target
 help:
@@ -198,14 +198,14 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... SimpleClient"
-	@echo "... SimpleServer"
-	@echo "... src/SimpleClient.o"
-	@echo "... src/SimpleClient.i"
-	@echo "... src/SimpleClient.s"
-	@echo "... src/SimpleServer.o"
-	@echo "... src/SimpleServer.i"
-	@echo "... src/SimpleServer.s"
+	@echo "... ComplexClient"
+	@echo "... ComplexServer"
+	@echo "... src/ComplexClient.o"
+	@echo "... src/ComplexClient.i"
+	@echo "... src/ComplexClient.s"
+	@echo "... src/ComplexServer.o"
+	@echo "... src/ComplexServer.i"
+	@echo "... src/ComplexServer.s"
 .PHONY : help
 
 

@@ -6,6 +6,7 @@
 #include <thread>
 #include <memory> 
 #include <boost/asio.hpp>
+#include <map>
 #include <boost/asio/ts/buffer.hpp>
 #include <boost/asio/ts/internet.hpp>
 #define asio  boost::asio
@@ -20,3 +21,10 @@
 #define Pubish 0x80
 #define StringMessage 0x90
 
+enum MsgTypes : uint32_t {
+    OFFER_SERVICE,
+    AVAILABILITY,
+    REQUEST_SERVICE,
+    RESPONSE_SERVICE,
+    SHOW_AVAILABLE
+};

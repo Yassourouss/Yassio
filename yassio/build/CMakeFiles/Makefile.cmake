@@ -50,6 +50,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/SimpleClient.dir/DependInfo.cmake"
-  "CMakeFiles/SimpleServer.dir/DependInfo.cmake"
+  "CMakeFiles/ComplexClient.dir/DependInfo.cmake"
+  "CMakeFiles/ComplexServer.dir/DependInfo.cmake"
   )

@@ -63,8 +63,8 @@ CMAKE_BINARY_DIR = /home/yassir/Desktop/Yassio/yassio/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/SimpleClient.dir/all
-all: CMakeFiles/SimpleServer.dir/all
+all: CMakeFiles/ComplexClient.dir/all
+all: CMakeFiles/ComplexServer.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -72,61 +72,61 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/SimpleClient.dir/clean
-clean: CMakeFiles/SimpleServer.dir/clean
+clean: CMakeFiles/ComplexClient.dir/clean
+clean: CMakeFiles/ComplexServer.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/SimpleClient.dir
+# Target rules for target CMakeFiles/ComplexClient.dir
 
 # All Build rule for target.
-CMakeFiles/SimpleClient.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleClient.dir/build.make CMakeFiles/SimpleClient.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleClient.dir/build.make CMakeFiles/SimpleClient.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles --progress-num=1,2 "Built target SimpleClient"
-.PHONY : CMakeFiles/SimpleClient.dir/all
+CMakeFiles/ComplexClient.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexClient.dir/build.make CMakeFiles/ComplexClient.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexClient.dir/build.make CMakeFiles/ComplexClient.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles --progress-num=1,2 "Built target ComplexClient"
+.PHONY : CMakeFiles/ComplexClient.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/SimpleClient.dir/rule: cmake_check_build_system
+CMakeFiles/ComplexClient.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/yassir/Desktop/Yassio/yassio/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/SimpleClient.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/ComplexClient.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/yassir/Desktop/Yassio/yassio/build/CMakeFiles 0
-.PHONY : CMakeFiles/SimpleClient.dir/rule
+.PHONY : CMakeFiles/ComplexClient.dir/rule
 
 # Convenience name for target.
-SimpleClient: CMakeFiles/SimpleClient.dir/rule
-.PHONY : SimpleClient
+ComplexClient: CMakeFiles/ComplexClient.dir/rule
+.PHONY : ComplexClient
 
 # clean rule for target.
-CMakeFiles/SimpleClient.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleClient.dir/build.make CMakeFiles/SimpleClient.dir/clean
-.PHONY : CMakeFiles/SimpleClient.dir/clean
+CMakeFiles/ComplexClient.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexClient.dir/build.make CMakeFiles/ComplexClient.dir/clean
+.PHONY : CMakeFiles/ComplexClient.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/SimpleServer.dir
+# Target rules for target CMakeFiles/ComplexServer.dir
 
 # All Build rule for target.
-CMakeFiles/SimpleServer.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleServer.dir/build.make CMakeFiles/SimpleServer.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleServer.dir/build.make CMakeFiles/SimpleServer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles --progress-num=3,4 "Built target SimpleServer"
-.PHONY : CMakeFiles/SimpleServer.dir/all
+CMakeFiles/ComplexServer.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexServer.dir/build.make CMakeFiles/ComplexServer.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexServer.dir/build.make CMakeFiles/ComplexServer.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles --progress-num=3,4 "Built target ComplexServer"
+.PHONY : CMakeFiles/ComplexServer.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/SimpleServer.dir/rule: cmake_check_build_system
+CMakeFiles/ComplexServer.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/yassir/Desktop/Yassio/yassio/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/SimpleServer.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/ComplexServer.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/yassir/Desktop/Yassio/yassio/build/CMakeFiles 0
-.PHONY : CMakeFiles/SimpleServer.dir/rule
+.PHONY : CMakeFiles/ComplexServer.dir/rule
 
 # Convenience name for target.
-SimpleServer: CMakeFiles/SimpleServer.dir/rule
-.PHONY : SimpleServer
+ComplexServer: CMakeFiles/ComplexServer.dir/rule
+.PHONY : ComplexServer
 
 # clean rule for target.
-CMakeFiles/SimpleServer.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleServer.dir/build.make CMakeFiles/SimpleServer.dir/clean
-.PHONY : CMakeFiles/SimpleServer.dir/clean
+CMakeFiles/ComplexServer.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ComplexServer.dir/build.make CMakeFiles/ComplexServer.dir/clean
+.PHONY : CMakeFiles/ComplexServer.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

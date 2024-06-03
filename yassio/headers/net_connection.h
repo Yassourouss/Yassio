@@ -27,10 +27,11 @@ namespace someip
 			connection(owner parent, asio::io_context& asioContext, asio::ip::tcp::socket socket, tsqueue<owned_message<T>>& qIn)
 				: m_asioContext(asioContext), m_socket(std::move(socket)), m_qMessagesIn(qIn)
 			{
-                word = selected_word();
                 
-                m_nHandshakeInClient = new char[word.length()+1];
-                m_nHandshakeOutServer = new char[word.length()+1];
+                std::cout << "[] Base word : " << word << std::endl;
+                
+                m_nHandshakeInClient = new char[word.length() + 1];
+                m_nHandshakeOutServer = new char[word.length() + 1];
 				m_nOwnerType = parent;
 
 				// Construct validation check data
@@ -41,8 +42,8 @@ namespace someip
                    m_key = rand_key();
                     std::cout << "random key : " << m_key << std::endl;
                     std::string scrambled = encrypt_word(word,m_key); //m_key);
-                    scrambled.copy(m_nHandshakeOutServer, word.length()+1);
-                   // word.copy(m_nHandshakeOut,word.length() + 1);
+                    scrambled.copy(m_nHandshakeOutServer, word.length() + 1);
+                   // word.copy(m_nHandshakeOut,word.length() + 1 + 1);
                     m_nHandshakeCheck = m_key;
 
 				}
@@ -59,6 +60,9 @@ namespace someip
             {
                 return id;
             }
+            uint32_t GetPort() {
+            return m_socket.remote_endpoint().port();
+    }
 
             public: 
                 void ConnectToClient(someip::net::server_interface<T>* server,uint32_t uid = 0)
@@ -231,8 +235,7 @@ namespace someip
                 {
                     
                     if (m_nOwnerType == owner::client){
-                        std::cout << "Message out : " << m_nHandshakeOutClient << std::endl;
-                    asio::async_write(m_socket, asio::buffer(&m_nHandshakeOutClient, sizeof(int)),
+                       asio::async_write(m_socket, asio::buffer(&m_nHandshakeOutClient, sizeof(int)),
                         [this](std::error_code ec, std::size_t length)
                         {
                             if (!ec)
@@ -250,8 +253,8 @@ namespace someip
                     }
                     else
                     {
-                        std::cout << "Message out : " << m_nHandshakeOutServer << std::endl;
-                        asio::async_write(m_socket, asio::buffer(m_nHandshakeOutServer, (word.length()+1)),
+                        std::cout << "[Server] Encoded message sent to the client : " << m_nHandshakeOutServer << std::endl;
+                        asio::async_write(m_socket, asio::buffer(m_nHandshakeOutServer, word.length() + 1),
                         [this](std::error_code ec, std::size_t length)
                         {
                             if (!ec)
@@ -274,16 +277,15 @@ namespace someip
                         {
                             if (!ec)
                             {
-                                std::cout << "[] Message received : " << m_nHandshakeInServer << std::endl; 
+                                std::cout << "[Server] Message received : " << m_nHandshakeInServer << std::endl; 
 
                                     // Connection is a server, so check response from client
 
                                     // Compare sent data to actual solution
-                                    std::cout << "m_nHandshakeCheck : " << m_nHandshakeCheck << std::endl;
                                     if (m_nHandshakeInServer == m_nHandshakeCheck)
                                     {
                                         // Client has provided valid solution, so allow it to connect properly
-                                        std::cout << "Client Validated" << std::endl;
+                                        std::cout << "[Server]Client Validated" << std::endl;
                                         server->OnClientValidated(this->shared_from_this());
 
                                         // Sit waiting to receive data now
@@ -300,19 +302,21 @@ namespace someip
                     }
                                 else
                                 {
-                    asio::async_read(m_socket, asio::buffer(m_nHandshakeInClient, word.length()+ 1),
+                    asio::async_read(m_socket, asio::buffer(m_nHandshakeInClient, word.length() + 1),
                         [this, server](std::error_code ec, std::size_t length)
                         {
                             if (!ec)
                             {
                                     // Connection is a client, so solve puzzle
-                                    std::string wew = m_nHandshakeInClient;
-                                    m_key = determine_shift(wew);
+                                    std::stringstream wew;
+                                    wew << m_nHandshakeInClient;
+
+                                    m_key = determine_shift(wew.str());
                                     std::cout << "Determined shift : " << m_key << std::endl;
                                     //wew = decrypt_word(wew, m_key);
                                     //wew.copy(m_nHandshakeOut, wew.length());
                                     m_nHandshakeOutClient = m_key;
-                                    std::cout << "hand shake out received value : " << m_nHandshakeOutClient << std::endl;
+                                    std::cout << "[Client] Key sent to the server : " << m_nHandshakeOutClient << std::endl;
 
                                     // Write the result
                                     WriteValidation();
@@ -349,7 +353,7 @@ namespace someip
             int m_nHandshakeOutClient;
 
             int m_key = 0;
-            std::string word;
+            std::string word= selected_word();
 
 			bool m_bValidHandshake = false;
 			bool m_bConnectionEstablished = false;

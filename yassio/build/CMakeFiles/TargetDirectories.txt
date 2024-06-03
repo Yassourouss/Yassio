@@ -1,4 +1,4 @@
-/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles/SimpleClient.dir
-/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles/SimpleServer.dir
+/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles/ComplexClient.dir
+/home/yassir/Desktop/Yassio/yassio/build/CMakeFiles/ComplexServer.dir
 /home/yassir/Desktop/Yassio/yassio/build/CMakeFiles/edit_cache.dir
 /home/yassir/Desktop/Yassio/yassio/build/CMakeFiles/rebuild_cache.dir

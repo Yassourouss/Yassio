@@ -77,6 +77,7 @@ namespace someip
                 msg << service_id << method_id;
                 Send(msg);
             }
+            
             protected:
             asio::io_context m_context;
 

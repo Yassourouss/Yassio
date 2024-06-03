@@ -33,7 +33,7 @@ protected:
 		case ServerPing:
 		{
 			std::cout << "[" << client->GetID() << "]: Server Ping\n";
-
+	
 			// Simply bounce message back to client
 			client->Send(msg);
 		}
