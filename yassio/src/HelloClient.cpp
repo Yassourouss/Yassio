@@ -26,17 +26,16 @@ public:
         someip::net::message msg;
         msg.header.message_type = SHOW_AVAILABLE;
         msg.header.message_id = msg.header.message_id | (0x01 << 17);
-        msg << 19;
         Send(msg);
     }
-    void request_service(uint16_t instance_id)
+    void request_service(uint16_t instance_id, std::string word)
     {
         someip::net::message msg;
         msg.header.message_type = REQUEST_SERVICE;
         msg.header.message_id = msg.header.message_id | (0x01 << 17);
         msg.header.message_id = msg.header.message_id | (service_id<< 16);
         msg.header.message_id = msg.header.message_id | (8100);
-        std::string word = "Yassir";
+        //std::string word = "Yassir";
         msg << word;
         Send(msg);
     }
@@ -64,6 +63,8 @@ public:
         msg.header.message_id = msg.header.message_id | (0x01 << 17);
         msg.header.message_type = SUBSCRIBE;
         msg.header.request_id = id;
+        int rubbish = 10;
+        msg << rubbish;
 		Send(msg);
 	}
 	void Add_Sub(int id)
@@ -144,6 +145,8 @@ int main()
                         int sub_id = msg.header.request_id;
                         c.Add_Sub(sub_id);
                         std::cout << "[Client] New subscription from [" << sub_id << "]\n";
+                        int rubbish;
+                        msg >> rubbish;
                     }
                     default:
                     break;  
@@ -190,8 +193,10 @@ int main()
     
     }};
     std::thread bgThread(backgroundThread);
+    sleep(1);
     std::cout << "Welcome to Euler Yaw : \n";
-    std::cout << "[1] OFFER SERVICE\n" << "[2] SHOW SERVICES\n" << "[3] REQUEST SERVICE\n" << "input your choice : \n";
+    std::cout << "[1] OFFER SERVICE\n" << "[2] SHOW SERVICES\n" << "[3] REQUEST SERVICE\n" << "[4] MESSAGE A CLIENT\n"
+              << "[5] BROADCAST\n" << "[6] SUBSCRIBE\n" << "[7] PUBLISH\n" << "input your choice : \n";
     while(true)
     {
         
@@ -209,10 +214,12 @@ int main()
             }
             break;
             case 3:
-            {   std::cout << "Enter the instance id : ";
+            {   std::cout << "Enter the instance id and then the word : ";
                 int instance_id;
+                std::string word;
                 std::cin >> instance_id;
-                c.request_service(instance_id);
+                std::getline(std::cin, word);
+                c.request_service(instance_id,word);
                 std::cout << "\nRequested\n";
             }
             break;

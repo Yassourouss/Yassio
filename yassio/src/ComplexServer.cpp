@@ -11,7 +11,7 @@
     {} 
     friend std::ostream& operator<<(std::ostream& os, n_mService& serv)
     {
-        os <<"Service name : " << serv.name <<"\nService id : " << std::hex <<serv.service_id << "\nInstance id : " << std::hex << serv.instance_id << "\nPort : " << serv.port << std::endl;
+        os <<"Service name : " << serv.name <<"\nService id : " << std::hex <<serv.service_id << "\nInstance id : " << std::dec << serv.instance_id << "\nPort : " << serv.port << std::endl;
         return os;
     }
 };
@@ -53,20 +53,18 @@ protected:
                 std::string name;
                 msg >> name;
                 n_mService service(name, service_id, instance_id, port, index);
-                services.insert({service_id, service});
+                services.insert({instance_id, service});
             }
                 break;
 
             case AVAILABILITY:
-                {
+            {
                 uint16_t service_id = (msg.header.message_id >> 16) & (0xFFFF);
                 uint16_t instance_id = (msg.header.message_id & 0x7FFF);
                 std::map<int, n_mService>::iterator it = services.begin();
                 while (it != services.end())
-                {
-                    if(service_id == it->first)
-                    {
-                        if(instance_id == it->second.instance_id)
+                {   
+                        if(instance_id == it->first){
                         msg << true;
                         client->Send(msg);
                         break;
@@ -87,9 +85,7 @@ protected:
                 std::map<int, n_mService>::iterator it = services.begin();
                 while (it != services.end())
                 {
-                    if(service_id == it->first)
-                    {
-                        if(instance_id == it->second.instance_id)
+                    if(instance_id == it->first){
                         id = it->second.index;
                         break;
                     }
@@ -126,9 +122,18 @@ protected:
             case SUBSCRIBE:
             {
                 std::cout << "[" << client->GetID() << "] subscribed to  : [" << msg.header.request_id << "]\n";
-                int id = msg.header.request_id - 10000;
+                int id = msg.header.request_id;
                 msg.header.request_id = client->GetID();
-                m_deqConnections[id]->Send(msg);
+                //m_deqConnections[id]->Send(msg);
+                for(auto c : m_deqConnections)
+                {
+                    std::cout << c->GetID();
+                    if (c->GetID() == id)
+                    {
+                        MessageClient(c, msg);
+                        break;
+                    }
+                }
             }
             break;
 
@@ -185,7 +190,6 @@ protected:
             }
         }
     }
-
 
 
     private: 
