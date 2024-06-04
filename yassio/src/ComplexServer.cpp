@@ -127,7 +127,6 @@ protected:
                 //m_deqConnections[id]->Send(msg);
                 for(auto c : m_deqConnections)
                 {
-                    std::cout << c->GetID();
                     if (c->GetID() == id)
                     {
                         MessageClient(c, msg);

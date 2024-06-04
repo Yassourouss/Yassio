@@ -145,8 +145,6 @@ int main()
                         int sub_id = msg.header.request_id;
                         c.Add_Sub(sub_id);
                         std::cout << "[Client] New subscription from [" << sub_id << "]\n";
-                        int rubbish;
-                        msg >> rubbish;
                     }
                     default:
                     break;  
