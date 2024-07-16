@@ -15,3 +15,10 @@ You can then access the downloaded folder SimpleClient :
 And done, you've successfully built the project. 
 To run the server, just type : `./SimpleServer`  
 Same goes for the client : `./SimpleClient`
+
+# To navigate the project: 
+The most important part is in  yassio/headers;
+net_message.h, net_tsqueue.h and net_connection.h are all the useful components.
+net_server.h and net_client.h are the actual interfaces used by the user to implement the product.
+
+You can find implementation examples in yassio/src;
