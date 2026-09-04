@@ -44,7 +44,7 @@ protected:
             }
             break;
             case RESPONSE_SERVICE:
-            std::cout << "Yassir is fucking gay" << std::endl;
+            std::cout << "Response service" << std::endl;
             break;
             case AVAILABILITY:
             break;

@@ -10,7 +10,7 @@ public:
 		someip::net::message msg;
 		msg.header.message_id = ServerPing;
 
-		// Caution with this...
+		// Capture the current timestamp for the ping payload.
 		std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();		
 
 		msg << timeNow;

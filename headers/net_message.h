@@ -142,7 +142,7 @@ namespace someip
 			std::shared_ptr<connection<T>> remote = nullptr;
 			message msg;
 
-			// Again, a friendly string maker
+			// Stream insertion operator for readable output.
 			friend std::ostream& operator<<(std::ostream& os, const owned_message<T>& msg)
 			{
 				os << msg.msg;
