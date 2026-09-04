@@ -78,8 +78,7 @@ protected:
 
             case REQUEST_SERVICE:
             {
-                //std::cout << "Receivde this mmmm";
-                int id; 
+                int id;
                 uint16_t service_id = (msg.header.message_id >> 16) & (0xFFFF);
                 uint16_t instance_id = (msg.header.message_id & 0x7FFF);
                 std::map<int, n_mService>::iterator it = services.begin();

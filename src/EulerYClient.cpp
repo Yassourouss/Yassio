@@ -130,7 +130,7 @@ int main()
                     {
                         double response[4][4];
                         msg >> response;
-                        std::cout <<"La reponse recu : \n";
+                        std::cout <<"Received response : \n";
                         printMatrix(response);
                     }
                     break;
@@ -140,9 +140,9 @@ int main()
                         bool response; 
                         msg >> response;
                         if(response)
-                            std::cout <<"Service dispo :D\n"; 
+                            std::cout <<"Service is available\n"; 
                         else
-                            std::cout << "Service non dispo :(\n";
+                            std::cout << "Service not available :(\n";
                     }
                     case SUBSCRIBE:
                     {

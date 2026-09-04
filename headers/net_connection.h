@@ -307,23 +307,21 @@ namespace someip
                         {
                             if (!ec)
                             {
-                                    // Connection is a client, so solve puzzle
-                                    std::stringstream wew;
-                                    wew << m_nHandshakeInClient;
+                                    // Connection is a client, so solve the handshake puzzle.
+                                    std::stringstream handshakeStream;
+                                    handshakeStream << m_nHandshakeInClient;
 
-                                    m_key = determine_shift(wew.str());
+                                    m_key = determine_shift(handshakeStream.str());
                                     std::cout << "Determined shift : " << m_key << std::endl;
-                                    //wew = decrypt_word(wew, m_key);
-                                    //wew.copy(m_nHandshakeOut, wew.length());
                                     m_nHandshakeOutClient = m_key;
                                     std::cout << "[Client] Key sent to the server : " << m_nHandshakeOutClient << std::endl;
 
-                                    // Write the result
+                                    // Write the result.
                                     WriteValidation();
                                 }
                             else
                             {
-                                // Some biggerfailure occured
+                                // An error occurred while reading the validation data.
                                 std::cout << "Client Disconnected (ReadValidation)" << std::endl;
                                 m_socket.close();
                             }
@@ -342,13 +340,13 @@ namespace someip
             message m_msgTemporaryIn;
             owner m_nOwnerType = owner::server;
 
-            //For the server : sends out a word, expects a number, matches it with a number
+            // Server: sends a word and expects a matching numeric response.
 
 			char*  m_nHandshakeOutServer;
 			int m_nHandshakeInServer;
 			int m_nHandshakeCheck;
 
-            //For the client : receives a word, sends back a number: 
+            // Client: receives a word and sends back the matching numeric response.
             char* m_nHandshakeInClient;
             int m_nHandshakeOutClient;
 
