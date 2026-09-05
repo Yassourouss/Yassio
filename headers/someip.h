@@ -1,8 +1,8 @@
 #pragma once
 
 #include "net_common.h"
-#include "net_tsqueue.h"
-#include "net_message.h"
-#include "net_client.h"
-#include "net_server.h"
-#include "net_connection.h"
+#include "tsqueue/net_tsqueue.h"
+#include "message/net_message.h"
+#include "client/net_client.h"
+#include "server/net_server.h"
+#include "connection/net_connection.h"
