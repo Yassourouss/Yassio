@@ -1,9 +1,9 @@
 #pragma once
 
-#include "net_common.h"
-#include "net_tsqueue.h"
-#include "net_message.h"
-#include "net_connection.h"
+#include "../net_common.h"
+#include "../tsqueue/net_tsqueue.h"
+#include "../message/net_message.h"
+#include "../connection/net_connection.h"
 
 namespace someip
 {
